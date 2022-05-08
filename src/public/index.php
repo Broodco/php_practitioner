@@ -1,8 +1,7 @@
 <?php
-require_once 'Task.php';
 
-$query = require_once '../bootstrap.php';
+require_once 'core/bootstrap.php';
 
-$tasks = $query->selectAll('tasks', Task::class);
+require Router::load('routes.php')
+    ->direct(Request::uri());
 
-require_once 'index.view.php';
