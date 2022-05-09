@@ -20,6 +20,17 @@ foreach ($tasks as $task) : ?>
     </section>
 <?php endforeach; ?>
 
+<?php /** @var array $users */
+foreach ($users as $user) : ?>
+    <section>
+        <ul>
+            <li>
+                <strong>User : </strong><?= ucfirst($user->name) ?>
+            </li>
+        </ul>
+    </section>
+<?php endforeach; ?>
+
 <h2>Submit your name</h2>
 
 <form method="POST" action="/names">

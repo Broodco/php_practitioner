@@ -1,5 +1,6 @@
 <?php
 
+require 'vendor/autoload.php';
 require_once 'core/bootstrap.php';
 
 require Router::load('routes.php')

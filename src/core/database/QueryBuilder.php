@@ -21,11 +21,16 @@ class QueryBuilder
 
     }
 
-    public function insert(string $table, $data): void
+    public function insert(string $table, array $parameters): void
     {
+        $sql = sprintf('INSERT INTO %s (%s) VALUES (%s)',
+            $table,
+            implode(', ', array_keys($parameters)),
+            ':' . implode(', :', array_keys($parameters))
+        );
         //TODO Prepare data for insertion
-        $stmt = $this->pdo->prepare("INSERT {$data} INTO {$table}");
+        $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute();
+        $stmt->execute($parameters);
     }
 }
