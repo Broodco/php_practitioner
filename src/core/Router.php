@@ -3,26 +3,34 @@
 class Router
 {
 
-    protected array $routes;
+    protected array $routes = [
+        'GET' => [],
+        'POST' => [],
+    ];
 
     public static function load($file): Router
     {
         $router = new static();
 
-        $router->register(require $file);
+        require $file;
 
         return $router;
     }
 
-    public function register(array $routes): void
+    public function get(string $uri, string $controller): void
     {
-        $this->routes = $routes;
+        $this->routes['GET'][$uri] = $controller;
     }
 
-    public function direct($uri)
+    public function post(string $uri, string $controller): void
     {
-        if (array_key_exists($uri, $this->routes)) {
-            return $this->routes[$uri];
+        $this->routes['POST'][$uri] = $controller;
+    }
+
+    public function direct($uri, $requestType)
+    {
+        if (array_key_exists($uri, $this->routes[$requestType])) {
+            return $this->routes[$requestType][$uri];
         }
 
         throw new Exception('No route found.');
