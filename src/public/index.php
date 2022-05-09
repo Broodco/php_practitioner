@@ -1,11 +1,7 @@
 <?php
 
-require_once 'functions.php';
-require_once 'Task.php';
+require_once 'core/bootstrap.php';
 
-$pdo = connectToDb();
+require Router::load('routes.php')
+    ->direct(Request::uri(), Request::method());
 
-$tasks = fetchAllTasks($pdo);
-
-
-require_once 'index.view.php';
